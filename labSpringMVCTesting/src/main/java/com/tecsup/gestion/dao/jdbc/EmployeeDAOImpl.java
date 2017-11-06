@@ -12,6 +12,7 @@ package com.tecsup.gestion.dao.jdbc;
 	import com.tecsup.gestion.dao.EmployeeDAO;
 	import com.tecsup.gestion.exception.DAOException;
 	import com.tecsup.gestion.exception.EmptyResultException;
+	import com.tecsup.gestion.exception.LoginException;
 	import com.tecsup.gestion.mapper.EmployeeMapper;
 	import com.tecsup.gestion.model.Employee;
 
@@ -168,7 +169,7 @@ package com.tecsup.gestion.dao.jdbc;
 
 
 		@Override
-		public List<Employee> findEmployeeByLastName(String lastname) throws DAOException, EmptyResultException {
+		public List<Employee> findEmployeeLastName(String lastname) throws DAOException, EmptyResultException {
 			String query = "SELECT employee_id, login, password, first_name, last_name, salary, department_id FROM employees WHERE upper(last_name) like upper(?)";
 			
 			Object[] params = new Object[] { "%" + lastname+ "%" };
@@ -186,4 +187,33 @@ package com.tecsup.gestion.dao.jdbc;
 				throw new DAOException(e.getMessage());
 			}
 		}
-	}
+
+
+		@Override
+		public Employee validate(String login, String pwd) throws LoginException, DAOException {
+			logger.info("validate(): login: " + login + ", clave: " + pwd);
+			
+			if ("".equals(login) && "".equals(pwd)) {
+				throw new LoginException("Login and password incorrect");
+			}
+		
+			String query = "SELECT login, password, employee_id, first_name, last_name, salary, department_id  "
+					+ " FROM employees WHERE login=? AND password=?";
+		
+			Object[] params = new Object[] { login, pwd };
+		
+			try {
+		
+				Employee emp = (Employee) jdbcTemplate.queryForObject(query, params, new EmployeeMapper());
+				//
+				return emp;
+		
+			} catch (EmptyResultDataAccessException e) {
+				logger.info("Employee y/o clave incorrecto");
+				throw new LoginException();
+			} catch (Exception e) {
+				logger.info("Error: " + e.getMessage());
+				throw new DAOException(e.getMessage());
+			}
+		}
+		}

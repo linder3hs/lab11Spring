@@ -112,7 +112,7 @@ public class EmployeeDAOTest {
 	public void testFindEmployeeByLastname() {
 		
 		try {
-			List<Employee> emp2 =   employeeDAO.findEmployeeByLastName("Gomez");
+			List<Employee> emp2 =   employeeDAO.findEmployeeLastName("Gomez");
 			
 			logger.info(emp2.toString());
 		} catch (EmptyResultException e) {
