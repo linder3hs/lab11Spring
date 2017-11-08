@@ -31,6 +31,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return emps;
 	}
 
+	@Override
+	public void update(String login, String password, String lastname, String firstname, int salary, int dptId)
+			throws DAOException {
+		
+		employeeDAO.update(login, password, lastname, firstname, salary, dptId);
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	/*@Override
+	public List<Employee> findEmployeesDates(String name, String lastname, String salary) throws DAOException, EmptyResultException {
+		// TODO Auto-generated method stub
+		List<Employee> employees = employeeDAO.findEmployeesDates(name, lastname, salary);
+		return employees;
+	}*/
+	
+	
+
 	
 
 }

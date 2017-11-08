@@ -30,6 +30,8 @@ public interface EmployeeDAO {
 	List<Employee> findEmployeeLastName(String lastname) throws DAOException, EmptyResultException;
 	
 	Employee validate(String login, String pwd) throws LoginException, DAOException;
+	
+	List<Employee> findEmployeesDates(String name, String lastname, String salary) throws DAOException, EmptyResultException; 
 
 
 }

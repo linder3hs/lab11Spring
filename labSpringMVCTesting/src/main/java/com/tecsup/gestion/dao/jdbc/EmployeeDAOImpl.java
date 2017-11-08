@@ -216,4 +216,24 @@ package com.tecsup.gestion.dao.jdbc;
 				throw new DAOException(e.getMessage());
 			}
 		}
+
+
+		@Override
+		public List<Employee> findEmployeesDates(String name, String lastname, String salary)
+				throws DAOException, EmptyResultException {
+			String query = "SELECT employee_id, login, password, first_name, last_name, salary, department_id FROM employees WHERE first_name=? AND last_name=? AND salary=?";
+			Object[] params = new Object[] { name, lastname, salary };
+			
+			try {
+				List<Employee> employeesD = jdbcTemplate.query(query, params, new EmployeeMapper());
+
+				return employeesD;
+			} catch (EmptyResultDataAccessException e) {
+				throw new EmptyResultException();
+			} catch (Exception e) {
+				logger.info("Error: " + e.getMessage());
+				throw new DAOException(e.getMessage());
+			}
+
+		}
 		}

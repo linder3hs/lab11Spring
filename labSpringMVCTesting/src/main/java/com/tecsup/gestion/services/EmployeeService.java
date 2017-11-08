@@ -13,6 +13,12 @@ public interface EmployeeService {
 
 	List <Employee> findAll() throws DAOException, EmptyResultException;
 	
+	void update(String login, String password, String lastname, String firstname, int salary, int dptId)
+			throws DAOException;
+	
+	//List <Employee> findEmployeesDates(String name, String lastname, String salary) throws DAOException, EmptyResultException;
+
+	
 	//List <Employee> fin
 	
 

@@ -92,12 +92,12 @@ public class EmployeeDAOTest {
 
 		try {
 			//
-			Employee emp = employeeDAO.findEmployeeByLogin("jgomez");
+			Employee emp = employeeDAO.findEmployeeByLogin("lhassinger");
 
-			Assert.assertEquals("123456", emp.getPassword());
-			Assert.assertEquals("Jaime", emp.getFirstname());
-			Assert.assertEquals("Gomez", emp.getLastname());
-			Assert.assertEquals(2505, emp.getSalary());
+			Assert.assertEquals("123", emp.getPassword());
+			Assert.assertEquals("Linder", emp.getFirstname());
+			Assert.assertEquals("Hassinger", emp.getLastname());
+			Assert.assertEquals(6000, emp.getSalary());
 
 			logger.info(emp.toString());
 		} catch (EmptyResultException e) {
@@ -112,7 +112,7 @@ public class EmployeeDAOTest {
 	public void testFindEmployeeByLastname() {
 		
 		try {
-			List<Employee> emp2 =   employeeDAO.findEmployeeLastName("Gomez");
+			List<Employee> emp2 =   employeeDAO.findEmployeeLastName("Hassinger");
 			
 			logger.info(emp2.toString());
 		} catch (EmptyResultException e) {
@@ -224,6 +224,24 @@ public class EmployeeDAOTest {
 		} catch (EmptyResultException e) {
 			// Usuario borrado 
 			return;
+		}
+
+	}
+	
+	@Test
+	public void testFindFields(){
+		
+		try {
+			String name="Linder";
+			String lastname = "Hassinger";
+			String salary = "6000";
+			List<Employee> emp2 =   employeeDAO.findEmployeesDates(name, lastname, salary);
+
+		}  catch (DAOException e) {
+			fail(e.getMessage());
+		} catch (EmptyResultException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
