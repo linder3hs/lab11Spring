@@ -46,7 +46,7 @@ public void givenWac_whenServletContext_thenItProvidesGreetController() {
     
     @Test
 	public void list() throws Exception {
-		mockMvc.perform(get("/admin/emp/list"))
+		/*mockMvc.perform(get("/admin/emp/list"))
 				.andExpect(status().isOk())
 				.andExpect(view().name("admin/emp/list"))
 				.andExpect(forwardedUrl("/WEB-INF/views/admin/emp/list.jsp"))
@@ -60,7 +60,7 @@ public void givenWac_whenServletContext_thenItProvidesGreetController() {
 										hasProperty("lastname", is("Hassinger")), 
 										hasProperty("salary", is(6000)) //,
 										//hasProperty("department",hasProperty("departmentId", is(12)))
-									))));
+									))));*/
 	}
     
 	@Test
@@ -104,6 +104,13 @@ public void givenWac_whenServletContext_thenItProvidesGreetController() {
 						hasProperty("salary", is(3000)) //,
 						//hasProperty("department",hasProperty("departmentId", is(12)))
 					))));
+	}
+	
+	@Test 
+	public void verificarDepartmentId() throws Exception {
+		mockMvc.perform(get("/admin/emp/list"))
+		.andExpect(model().attribute("employees", 
+				hasItem( hasProperty("departmentId", is(14)))));
 	}
 
 }
